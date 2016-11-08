@@ -26,7 +26,8 @@ export default createClass({
     propTypes: {
         children: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.func
+            PropTypes.func,
+            PropTypes.element
         ]),
         text: PropTypes.string,
         min: PropTypes.number,
@@ -46,7 +47,7 @@ export default createClass({
             max: 100,
             mode: 'multi',
             forceSingleModeWidth: true,
-            perfectFit: true,
+            perfectFit: false,
             throttle: 50,
             autoResize: true,
             onReady: noop
@@ -177,7 +178,7 @@ export default createClass({
                 if (!perfectFit) return stepCallback();
                 if (testPrimary()) return stepCallback();
                 whilst(
-                    () => !testPrimary(),
+                    () => !testPrimary() && mid > 0,
                     whilstCallback => {
                         if (shouldCancelProcess()) return whilstCallback(true);
                         this.setState({ fontSize: --mid }, whilstCallback);
@@ -200,7 +201,7 @@ export default createClass({
     },
 
     render() {
-        const { children, text, style, min, max, mode, ...props } = this.props;
+        const { children, text, style, min, max, mode, forceSingleModeWidth, perfectFit, throttle, autoResize, onReady, ...props } = this.props;
         const { fontSize, ready } = this.state;
         const finalStyle = {
             ...style,

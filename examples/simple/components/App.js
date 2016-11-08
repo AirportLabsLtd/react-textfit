@@ -63,9 +63,9 @@ export default createClass({
                     <div className="column-100">
                         <Textfit
                             mode="single"
-                            max={500}
+                            max={500} style={inlineStyle}
                             className="box box-fat">
-                            Fat headlines!
+                                <div></div>
                         </Textfit>
                     </div>
                 </div>
